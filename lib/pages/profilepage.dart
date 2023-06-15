@@ -13,11 +13,11 @@ class ProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage(
-                    'assets/avatar.png'), // Replace with your own image
-              ),
+              // CircleAvatar(
+              //   radius: 50,
+              // //   backgroundImage: AssetImage(
+              // //       'assets/images/photo.jpg'), // Replace with your own image
+              // // ),
               const SizedBox(height: 16),
               Text(
                 'John Doe',
@@ -28,7 +28,7 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'johndoe@example.com',
+                'Shiva@example.com',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
