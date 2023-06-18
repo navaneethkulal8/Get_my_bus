@@ -9,20 +9,21 @@ class BusSchedulePage extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 20),
             Text(
-              'Available Buses',
+              'User Activity Log',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 5, // Replace with your actual number of buses
+              itemCount: 5, // Replace with your actual number of log entries
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
-                    title: Text('Bus Name ${index + 1}'),
+                    title: Text('Activity ${index + 1}'),
                     subtitle: Text(
-                        'Timing: 9:00 AM'), // Replace with your actual bus timings
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', // Replace with your actual log entry details
+                    ),
                   ),
                 );
               },
