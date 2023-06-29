@@ -3,6 +3,7 @@ import 'package:getmybus/pages/busschedulepage.dart';
 import 'package:getmybus/pages/landingpage.dart';
 import 'package:getmybus/pages/loginpage.dart';
 import 'package:getmybus/pages/profilepage.dart';
+import 'package:getmybus/pages/create_account.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    LoginPage(),
+    CreateAccount(),
     LandingPage(),
     BusSchedulePage(),
     ProfilePage(),
