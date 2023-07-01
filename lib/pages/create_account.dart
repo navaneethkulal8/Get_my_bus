@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:getmybus/pages/landingpage.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
@@ -82,8 +84,45 @@ class _CreateAccountState extends State<CreateAccount> {
                 SizedBox(height: 16),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Perform sign-in functionality
+                    onPressed: () async {
+                      // Perform account creation functionality
+                      try {
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .createUserWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+                        // Account creation successful, navigate to the home screen
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LandingPage(),
+                          ),
+                        );
+                      } catch (e) {
+                        // Handle account creation errors
+                        print('Account creation failed: $e');
+                        // Show error message to the user
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Account Creation Failed'),
+                              content: Text(
+                                  'An error occurred while creating your account. Please try again.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.blue,
