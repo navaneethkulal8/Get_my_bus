@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:getmybus/pages/busschedulepage.dart';
 import 'package:getmybus/pages/landingpage.dart';
-import 'package:getmybus/pages/loginpage.dart';
-import 'package:getmybus/pages/profilepage.dart';
 import 'package:getmybus/pages/create_account.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'pages/mainpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,66 +17,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MainPage(),
+      home:
+          AuthenticationWrapper(), // Use the AuthenticationWrapper widget to handle login status.
     );
   }
 }
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class AuthenticationWrapper extends StatefulWidget {
+  const AuthenticationWrapper({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _AuthenticationWrapperState createState() => _AuthenticationWrapperState();
 }
 
-class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
+class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
+  bool _isLoggedIn = false;
 
-  final List<Widget> _pages = [
-    CreateAccount(),
-    LandingPage(),
-    BusSchedulePage(),
-    ProfilePage(),
-  ];
-
-  void _onItemTapped(int index) {
+  void _onLogin() {
     setState(() {
-      _selectedIndex = index;
+      _isLoggedIn = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Get My Bus'),
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.login),
-            label: 'Login',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            label: 'Bus Schedule',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-      ),
-    );
+    if (_isLoggedIn) {
+      return MainPage(); // Show MainPage if the user is logged in.
+    } else {
+      return CreateAccountPage(); // Show CreateAccountPage otherwise.
+    }
   }
 }
