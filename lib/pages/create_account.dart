@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:getmybus/pages/mainpage.dart';
+import 'package:getmybus/pages/loginpage.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({Key? key}) : super(key: key);
@@ -10,8 +10,8 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   bool _isCreatingAccount = false;
 
@@ -36,11 +36,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         );
 
         if (userCredential.user != null) {
-          // Account creation successful, navigate to the main page.
-          Navigator.pushReplacement(
+          // Account creation successful, navigate to the login page.
+          Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MainPage(),
+              builder: (context) => LoginPage(),
             ),
           );
         }
@@ -55,7 +55,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           return AlertDialog(
             title: const Text('Account Creation Failed'),
             content: Text(
-                'An error occurred while creating your account. Please try again.'),
+              'An error occurred while creating your account. Please try again.',
+            ),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
@@ -80,124 +81,84 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       appBar: AppBar(
         title: const Text('Create Account'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 16),
-            Text(
-              "Hey",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              "Let's get",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              "Started",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                hintText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: _registerUser,
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 16),
+                Text(
+                  "Hey",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 10.0),
-                  child: _isCreatingAccount
-                      ? CircularProgressIndicator(
-                          color: Colors.white,
-                        )
-                      : Text(
-                          'Sign In',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    'or continue with Google',
-                    style: TextStyle(fontSize: 16),
+                Text(
+                  "Let's get",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Perform Google sign-in functionality
-                    },
+                ),
+                Text(
+                  "Started",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _isCreatingAccount ? null : _registerUser,
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
+                      primary: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.black),
                       ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 10.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // Image.asset(
-                          //   'assets/images/google_logo.png', // Replace with your Google logo
-                          //   height: 24,
-                          //   width: 24,
-                          // ),
-                          // SizedBox(width: 8),
-                          Text(
-                            'Sign in with Google',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
+                      child: _isCreatingAccount
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              'Create account',
+                              style: TextStyle(fontSize: 16),
+                            ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

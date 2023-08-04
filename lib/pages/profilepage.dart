@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:getmybus/pages/loginpage.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -6,6 +8,9 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -71,15 +76,48 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  // Implement edit profile functionality
-                },
-                child: const Text('Edit Profile'),
+                onPressed: () => _onLogoutPressed(context),
+                child: const Text('Logout'),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  // Implement logout functionality
+  Future<void> _onLogoutPressed(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      // Redirect to the login page after logout
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
+      );
+    } catch (e) {
+      print('Logout failed: $e');
+      // Show error message to the user if logout fails
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Logout Failed'),
+            content:
+                Text('An error occurred while logging out. Please try again.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:getmybus/pages/busschedulepage.dart';
 import 'package:getmybus/pages/landingpage.dart';
-import 'package:getmybus/pages/loginpage.dart';
 import 'package:getmybus/pages/profilepage.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class Homepage extends StatefulWidget {
+  const Homepage({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _HomepageState createState() => _HomepageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _HomepageState extends State<Homepage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    LoginPage(),
     LandingPage(),
     BusSchedulePage(),
     ProfilePage(),
@@ -37,10 +35,6 @@ class _MainPageState extends State<MainPage> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.login),
-            label: 'Login',
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',

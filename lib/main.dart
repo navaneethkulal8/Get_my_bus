@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:getmybus/pages/landingpage.dart';
-import 'package:getmybus/pages/create_account.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'pages/mainpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:getmybus/pages/homepage.dart';
+import 'package:getmybus/pages/loginpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,36 +15,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home:
-          AuthenticationWrapper(), // Use the AuthenticationWrapper widget to handle login status.
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Show a simple loading screen with a CircularProgressIndicator
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        } else {
+          // Check if the user is logged in or not
+          final isUserLoggedIn = snapshot.hasData;
+
+          // Return the appropriate screen based on the user's authentication status
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: isUserLoggedIn ? Homepage() : LoginPage(),
+          );
+        }
+      },
     );
-  }
-}
-
-class AuthenticationWrapper extends StatefulWidget {
-  const AuthenticationWrapper({Key? key}) : super(key: key);
-
-  @override
-  _AuthenticationWrapperState createState() => _AuthenticationWrapperState();
-}
-
-class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
-  bool _isLoggedIn = false;
-
-  void _onLogin() {
-    setState(() {
-      _isLoggedIn = true;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_isLoggedIn) {
-      return MainPage(); // Show MainPage if the user is logged in.
-    } else {
-      return CreateAccountPage(); // Show CreateAccountPage otherwise.
-    }
   }
 }
