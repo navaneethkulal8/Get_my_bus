@@ -63,11 +63,11 @@ GetMyBus has the potential to become a comprehensive public transportation solut
 
 ## About the Developer
 
-GetMyBus was developed by [Your Name], a passionate and skilled mobile app developer with a focus on building user-centric applications. [Your Name] thrives on delivering high-quality solutions and believes in harnessing technology to create positive impacts in people's lives.
+GetMyBus was developed by [Navaneeth], a passionate and skilled mobile app developer with a focus on building user-centric applications. Team thrives on delivering high-quality solutions and believes in harnessing technology to create positive impacts in people's lives.
 
 ---
 
-Thank you for choosing GetMyBus for your public transportation needs. We are committed to continuous improvement and look forward to enhancing your travel experience. If you have any questions or feedback, please feel free to reach out to us at [contact@email.com].
+Thank you for choosing GetMyBus for your public transportation needs. We are committed to continuous improvement and look forward to enhancing your travel experience. If you have any questions or feedback, please feel free to reach out to us at [navaneethkulal8@gmail.com].
 
 **Stay tuned for the Demo Unveiling!**
 
