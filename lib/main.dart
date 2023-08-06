@@ -3,10 +3,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:getmybus/pages/homepage.dart';
 import 'package:getmybus/pages/loginpage.dart';
+// Import the firebase_app_check plugin
+import 'package:firebase_app_check/firebase_app_check.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // Activate FirebaseAppCheck
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+    // Default provider for Android is SafetyNet
+    androidProvider: AndroidProvider.safetyNet,
+    // Default provider for iOS/macOS is Device Check
+    appleProvider: AppleProvider.deviceCheck,
+  );
+
   runApp(const MyApp());
 }
 
