@@ -24,55 +24,64 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       _isCreatingAccount = true;
     });
 
+    final String email = _emailController.text.trim();
+    final String password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      // Add input validation and show an error message if fields are empty
+      _showErrorDialog('Please enter both email and password.');
+      setState(() {
+        _isCreatingAccount = false;
+      });
+      return;
+    }
+
     try {
-      final String email = _emailController.text.trim();
-      final String password = _passwordController.text;
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-      if (email.isNotEmpty && password.isNotEmpty) {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
+      if (userCredential.user != null) {
+        // Account creation successful, navigate to the login page.
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
+          ),
         );
-
-        if (userCredential.user != null) {
-          // Account creation successful, navigate to the login page.
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoginPage(),
-            ),
-          );
-        }
       }
     } catch (e) {
       // Handle account creation errors
       print('Account creation failed: $e');
-      // Show error message to the user
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Account Creation Failed'),
-            content: Text(
-              'An error occurred while creating your account. Please try again.',
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+      _showErrorDialog(
+          'An error occurred while creating your account. Please try again.');
     } finally {
       setState(() {
         _isCreatingAccount = false;
       });
     }
+  }
+
+  void _showErrorDialog(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Account Creation Failed'),
+          content: Text(errorMessage),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -145,14 +154,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 10.0),
-                      child: _isCreatingAccount
-                          ? CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : Text(
-                              'Create account',
-                              style: TextStyle(fontSize: 16),
-                            ),
+                      child: Visibility(
+                        visible: _isCreatingAccount,
+                        child: CircularProgressIndicator(color: Colors.white),
+                        replacement: Text(
+                          'Create account',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
                     ),
                   ),
                 ),

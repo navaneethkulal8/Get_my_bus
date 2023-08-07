@@ -49,51 +49,46 @@ class _DataAddingState extends State<DataAdding> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Data Adding'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                controller: _busNameController,
-                decoration: InputDecoration(
-                  labelText: 'Bus Name',
-                ),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextField(
+              controller: _busNameController,
+              decoration: InputDecoration(
+                labelText: 'Bus Name',
               ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _busNumberController,
-                decoration: InputDecoration(
-                  labelText: 'Bus Number',
-                ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _busNumberController,
+              decoration: InputDecoration(
+                labelText: 'Bus Number',
               ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _arrivalTimeController,
-                decoration: InputDecoration(
-                  labelText: 'Arrival Time',
-                ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _arrivalTimeController,
+              decoration: InputDecoration(
+                labelText: 'Arrival Time',
               ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _routeController,
-                decoration: InputDecoration(
-                  labelText: 'Route',
-                ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _routeController,
+              decoration: InputDecoration(
+                labelText: 'Route',
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _addDataToFirestore,
-                child: Text('Add Data'),
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _addDataToFirestore,
+              child: Text('Add Data'),
+            ),
+          ],
         ),
       ),
     );
