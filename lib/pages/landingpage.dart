@@ -33,11 +33,11 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           SizedBox(height: 5),
           Container(
-            margin: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -51,104 +51,15 @@ class _LandingPageState extends State<LandingPage> {
               },
               decoration: InputDecoration(
                 hintText: 'Starting location',
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: InputBorder.none,
-                suffixIcon: Icon(Icons.add),
+                suffixIcon: const Icon(Icons.add),
               ),
             ),
           ),
           SizedBox(height: 5),
-          Divider(thickness: 2),
-          SizedBox(height: 5),
-          Text(
-            "Timings",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          SizedBox(height: 5),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  child: TextField(
-                    onTap: () {
-                      // Implement onTap if needed
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'From',
-                      contentPadding: EdgeInsets.all(10),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  child: TextField(
-                    onTap: () {
-                      // Implement onTap if needed
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'To',
-                      contentPadding: EdgeInsets.all(10),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 10),
-              Padding(
-                padding: EdgeInsets.all(5),
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  child: DropdownButton<String>(
-                    hint: Text('All'),
-                    value: _selectedTime,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedTime = newValue;
-                      });
-                    },
-                    items: <String>[
-                      'Morning',
-                      'Afternoon',
-                      'Evening',
-                      'Night',
-                      'All'
-                    ].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 5),
           Container(
-            margin: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -162,30 +73,110 @@ class _LandingPageState extends State<LandingPage> {
               },
               decoration: InputDecoration(
                 hintText: 'End destination',
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: const EdgeInsets.all(10),
                 border: InputBorder.none,
-                suffixIcon: Icon(Icons.add),
+                suffixIcon: const Icon(Icons.add),
               ),
             ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            "Timings",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          SizedBox(height: 5),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'From',
+                      contentPadding: const EdgeInsets.all(10),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'To',
+                      contentPadding: const EdgeInsets.all(10),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 10),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: DropdownButton<String>(
+                    hint: const Text('All'),
+                    value: _selectedTime,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedTime = newValue;
+                      });
+                    },
+                    items: <String>[
+                      'Express',
+                      'Super fast service',
+                      'Local',
+                      'All'
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {},
-            child: Text("Getmybus"),
+            child: const Text("Get My Bus"),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Divider(thickness: 2),
           SizedBox(height: 10),
           GestureDetector(
             onTap: navigateToBusDetailsPage,
             child: Card(
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
                     Icon(Icons.bus_alert),

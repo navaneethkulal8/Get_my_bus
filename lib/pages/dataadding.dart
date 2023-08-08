@@ -9,37 +9,52 @@ class DataAdding extends StatefulWidget {
 }
 
 class _DataAddingState extends State<DataAdding> {
+  final TextEditingController _startingLocationController =
+      TextEditingController();
+  final TextEditingController _endDestinationController =
+      TextEditingController();
+  final TextEditingController _fromController = TextEditingController();
+  final TextEditingController _toController = TextEditingController();
   final TextEditingController _busNameController = TextEditingController();
   final TextEditingController _busNumberController = TextEditingController();
   final TextEditingController _arrivalTimeController = TextEditingController();
   final TextEditingController _routeController = TextEditingController();
+  String? _selectedTime; // Holds the selected dropdown value, initially 'All'
 
   void _addDataToFirestore() {
+    String startingLocation = _startingLocationController.text;
+    String endDestination = _endDestinationController.text;
+    String from = _fromController.text;
+    String to = _toController.text;
     String busName = _busNameController.text;
     String busNumber = _busNumberController.text;
     String arrivalTime = _arrivalTimeController.text;
     String route = _routeController.text;
 
-    // Create a new document in the "buses" collection with the user input data
     FirebaseFirestore.instance.collection('buses').add({
+      'startingLocation': startingLocation,
+      'endDestination': endDestination,
+      'from': from,
+      'to': to,
       'busName': busName,
       'busNumber': busNumber,
       'arrivalTime': arrivalTime,
       'route': route,
     }).then((_) {
-      // Data added successfully, show a success message or navigate back
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Data added successfully'),
         duration: Duration(seconds: 2),
       ));
 
-      // Clear the text fields after data is added
+      _startingLocationController.clear();
+      _endDestinationController.clear();
+      _fromController.clear();
+      _toController.clear();
       _busNameController.clear();
       _busNumberController.clear();
       _arrivalTimeController.clear();
       _routeController.clear();
     }).catchError((error) {
-      // Handle errors if data addition fails
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error adding data: $error'),
         duration: Duration(seconds: 2),
@@ -49,13 +64,65 @@ class _DataAddingState extends State<DataAdding> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
+    return Scaffold(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            SizedBox(height: 16),
+            Text(
+              'Add Data',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextField(
+              controller: _startingLocationController,
+              decoration: InputDecoration(
+                labelText: 'Starting Location',
+              ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _endDestinationController,
+              decoration: InputDecoration(
+                labelText: 'End Destination',
+              ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _fromController,
+              decoration: InputDecoration(
+                labelText: 'From',
+              ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _toController,
+              decoration: InputDecoration(
+                labelText: 'To',
+              ),
+            ),
+            SizedBox(height: 16),
+            DropdownButton<String>(
+              hint: Text('Express'),
+              value: _selectedTime,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedTime = newValue;
+                });
+              },
+              items: <String>['Express', 'Super fast service', 'Local']
+                  .map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            Divider(thickness: 1),
             TextField(
               controller: _busNameController,
               decoration: InputDecoration(
@@ -88,6 +155,7 @@ class _DataAddingState extends State<DataAdding> {
               onPressed: _addDataToFirestore,
               child: Text('Add Data'),
             ),
+            SizedBox(height: 16),
           ],
         ),
       ),
