@@ -43,7 +43,7 @@ class _HomepageState extends State<Homepage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
+            icon: Icon(Icons.bookmark_add_outlined),
             label: 'Bus Schedule',
           ),
           BottomNavigationBarItem(
