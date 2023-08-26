@@ -13,15 +13,6 @@ class _BusSchedulePageState extends State<BusSchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Bus Schedule Bookmarks',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -52,17 +43,40 @@ class _BusSchedulePageState extends State<BusSchedulePage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
-                        subtitle: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Destination:',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Timings'),
+                          ],
                         ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            // TODO: Handle deleting the bookmark
-                            setState(() {
-                              bookmarks.removeAt(index);
-                            });
-                          },
+                        trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.red),
+                                  onPressed: () {
+                                    // TODO: Handle deleting the bookmark
+                                    setState(() {
+                                      bookmarks.removeAt(index);
+                                    });
+                                  },
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // TODO: Handle viewing the route
+                                    // You can navigate to a new page or show a bottom sheet
+                                  },
+                                  child: Text('View Route'),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                         onTap: () {
                           setState(() {
