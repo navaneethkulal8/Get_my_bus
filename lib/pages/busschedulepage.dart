@@ -61,7 +61,7 @@ class _BusSchedulePageState extends State<BusSchedulePage> {
                                 IconButton(
                                   icon: Icon(Icons.delete, color: Colors.red),
                                   onPressed: () {
-                                    // TODO: Handle deleting the bookmark
+                                
                                     setState(() {
                                       bookmarks.removeAt(index);
                                     });
