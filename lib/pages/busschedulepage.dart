@@ -36,53 +36,68 @@ class _BusSchedulePageState extends State<BusSchedulePage> {
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       color: Colors.grey[100],
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(16.0),
-                        title: Text(
-                          'Bus Schedule ${index + 1}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Destination:',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text('Timings'),
-                          ],
-                        ),
-                        trailing: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () {
-                                
-                                    setState(() {
-                                      bookmarks.removeAt(index);
-                                    });
-                                  },
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Bus Schedule ${index + 1}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      'Destination:',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text('Timings'),
+                                  ],
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // TODO: Handle viewing the route
-                                    // You can navigate to a new page or show a bottom sheet
-                                  },
-                                  child: Text('View Route'),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            bookmarks[index] = !bookmarks[index];
-                          });
-                        },
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                    onPressed: () {
+                                      setState(() {
+                                        bookmarks.removeAt(index);
+                                      });
+                                    },
+                                  ),
+                                  ElevatedButton.icon(
+                                    onPressed: () {
+                                      // TODO: Handle viewing the route
+                                      // You can navigate to a new page or show a bottom sheet
+                                    },
+                                    label: Text('View Route'),
+                                    icon: Icon(Icons.arrow_forward),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.transparent),
+                                      elevation: MaterialStateProperty.all(0),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   );
