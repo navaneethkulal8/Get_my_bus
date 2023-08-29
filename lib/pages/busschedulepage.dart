@@ -73,13 +73,11 @@ class _BusSchedulePageState extends State<BusSchedulePage> {
                                       });
                                     },
                                   ),
-                                  ElevatedButton.icon(
+                                  ElevatedButton(
                                     onPressed: () {
                                       // TODO: Handle viewing the route
                                       // You can navigate to a new page or show a bottom sheet
                                     },
-                                    label: Text('View Route'),
-                                    icon: Icon(Icons.arrow_forward),
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
@@ -91,6 +89,20 @@ class _BusSchedulePageState extends State<BusSchedulePage> {
                                               BorderRadius.circular(15.0),
                                         ),
                                       ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'View Route',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward,
+                                          color: Colors.blue,
+                                        ),
+                                      ],
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                     ),
                                   ),
                                 ],
