@@ -15,11 +15,6 @@ class ProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // CircleAvatar(
-              //   radius: 50,
-              // //   backgroundImage: AssetImage(
-              // //       'assets/images/photo.jpg'), // Replace with your own image
-              // // ),
               const SizedBox(height: 16),
               Text(
                 'John Doe',
@@ -37,40 +32,20 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              ListView(
-                shrinkWrap:
-                    true, // Add this line to allow ListView to scroll within the Column
-                children: [
-                  ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text('Name'),
-                    subtitle: Text('John Doe'),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.location_on),
-                    title: Text('Address'),
-                    subtitle: Text('123 Main Street'),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.phone),
-                    title: Text('Contact Number'),
-                    subtitle: Text('+1 123-456-7890'),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.share),
-                    title: Text('Share Location'),
-                    onTap: () {
-                      // Implement share location functionality
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.contact_mail),
-                    title: Text('Contact Us'),
-                    onTap: () {
-                      // Implement contact us functionality
-                    },
-                  ),
-                ],
+              Expanded(
+                child: ListView(
+                  children: [
+                    _buildListTile(Icons.person, 'Name', 'John Doe'),
+                    _buildListTile(
+                        Icons.location_on, 'Address', '123 Main Street'),
+                    _buildListTile(
+                        Icons.phone, 'Contact Number', '+1 123-456-7890'),
+                    _buildListTile(
+                        Icons.share, 'Share Location', _handleShareLocation),
+                    _buildListTile(
+                        Icons.contact_mail, 'Contact Us', _handleContactUs),
+                  ],
+                ),
               ),
               ElevatedButton(
                 onPressed: () => _onLogoutPressed(context),
@@ -83,20 +58,32 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // Implement logout functionality
+  Widget _buildListTile(IconData icon, String title, dynamic content) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      subtitle: content is String ? Text(content) : null,
+      onTap: content is Function ? () => content() : null,
+    );
+  }
+
+  void _handleShareLocation() {
+    // Implement share location functionality
+  }
+
+  void _handleContactUs() {
+    // Implement contact us functionality
+  }
+
   Future<void> _onLogoutPressed(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-      // Redirect to the login page after logout
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(),
-        ),
+        MaterialPageRoute(builder: (context) => LoginPage()),
       );
     } catch (e) {
       print('Logout failed: $e');
-      // Show error message to the user if logout fails
       showDialog(
         context: context,
         builder: (BuildContext context) {
