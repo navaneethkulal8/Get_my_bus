@@ -37,6 +37,8 @@ class _HomepageState extends State<Homepage> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType
+            .fixed, // To ensure all items are always visible
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -52,7 +54,7 @@ class _HomepageState extends State<Homepage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.data_array_rounded),
-            label: 'Data adding',
+            label: 'Data Adding',
           ),
         ],
         currentIndex: _selectedIndex,
