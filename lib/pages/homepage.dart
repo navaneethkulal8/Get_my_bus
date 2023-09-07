@@ -3,7 +3,6 @@ import 'package:getmybus/pages/busschedulepage.dart';
 import 'package:getmybus/pages/dataadding.dart';
 import 'package:getmybus/pages/landingpage.dart';
 import 'package:getmybus/pages/profilepage.dart';
-import 'package:getmybus/pages/dataadding.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -22,6 +21,20 @@ class _HomepageState extends State<Homepage> {
     DataAdding(),
   ];
 
+  final List<IconData> _icons = [
+    Icons.home,
+    Icons.bookmark_add_outlined,
+    Icons.person,
+    Icons.data_array_rounded,
+  ];
+
+  final List<Color> _iconColors = [
+    Colors.blue, // Home icon color
+    Colors.green, // Bus Schedule icon color
+    Colors.red, // Profile icon color
+    Colors.orange, // Data Adding icon color
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -37,31 +50,36 @@ class _HomepageState extends State<Homepage> {
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType
-            .fixed, // To ensure all items are always visible
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_add_outlined),
-            label: 'Bus Schedule',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.data_array_rounded),
-            label: 'Data Adding',
-          ),
-        ],
+        type: BottomNavigationBarType.fixed,
+        items: List.generate(_icons.length, (index) {
+          return BottomNavigationBarItem(
+            icon: Icon(
+              _icons[index],
+              color: _selectedIndex == index ? _iconColors[index] : Colors.grey,
+            ),
+            label: _getLabelText(index),
+          );
+        }),
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
+  }
+
+  String _getLabelText(int index) {
+    switch (index) {
+      case 0:
+        return 'Home';
+      case 1:
+        return 'Bus Schedule';
+      case 2:
+        return 'Profile';
+      case 3:
+        return 'Data Adding';
+      default:
+        return '';
+    }
   }
 }
