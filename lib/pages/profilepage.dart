@@ -105,3 +105,4 @@ class ProfilePage extends StatelessWidget {
     }
   }
 }
+// Modifiying the pofile page to make to share the location
