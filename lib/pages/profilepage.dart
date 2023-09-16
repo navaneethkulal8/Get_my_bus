@@ -8,51 +8,60 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 16),
-              Text(
-                'John Doe',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 16),
+            Text(
+              'John Doe',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Shiva@example.com',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
+            ),
+            Text(
+              'Shiva@example.com',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
               ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: ListView(
-                  children: [
-                    _buildListTile(Icons.person, 'Name', 'John Doe'),
-                    _buildListTile(
-                        Icons.location_on, 'Address', '123 Main Street'),
-                    _buildListTile(
-                        Icons.phone, 'Contact Number', '+1 123-456-7890'),
-                    _buildListTile(
-                        Icons.share, 'Share Location', _handleShareLocation),
-                    _buildListTile(
-                        Icons.contact_mail, 'Contact Us', _handleContactUs),
-                  ],
-                ),
-              ),
-              ElevatedButton(
+            ),
+            SizedBox(height: 24),
+            _buildListTile(Icons.person, 'Name', 'John Doe'),
+            _buildListTile(
+              Icons.location_on,
+              'Address',
+              '123 Main Street',
+            ),
+            _buildListTile(
+              Icons.phone,
+              'Contact Number',
+              '+1 123-456-7890',
+            ),
+            _buildListTile(
+              Icons.share,
+              'Share Location',
+              _handleShareLocation,
+            ),
+            _buildListTile(
+              Icons.contact_mail,
+              'Contact Us',
+              _handleContactUs,
+            ),
+            SizedBox(height: 24),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
                 onPressed: () => _onLogoutPressed(context),
-                child: const Text('Logout'),
+                child: Text(
+                  'Sign Out',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -88,7 +97,7 @@ class ProfilePage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Logout Failed'),
+            title: Text('Logout Failed'),
             content:
                 Text('An error occurred while logging out. Please try again.'),
             actions: <Widget>[
@@ -96,7 +105,7 @@ class ProfilePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('OK'),
+                child: Text('OK'),
               ),
             ],
           );
@@ -105,4 +114,3 @@ class ProfilePage extends StatelessWidget {
     }
   }
 }
-// Modifiying the pofile page to make to share the location
