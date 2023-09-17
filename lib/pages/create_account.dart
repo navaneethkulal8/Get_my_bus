@@ -15,6 +15,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   bool _isCreatingAccount = false;
 
+  // Regular expression for a simple email validation
+  final RegExp emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+
   Future<void> _registerUser() async {
     if (_isCreatingAccount) {
       return;
@@ -27,9 +30,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     final String email = _emailController.text.trim();
     final String password = _passwordController.text;
 
-    if (email.isEmpty || password.isEmpty) {
-      // Add input validation and show an error message if fields are empty
-      _showErrorDialog('Please enter both email and password.');
+    String errorMessage;
+
+    if (email.isEmpty) {
+      errorMessage = 'Please enter an email address.';
+    } else if (!emailRegExp.hasMatch(email)) {
+      errorMessage = 'Please enter a valid email address.';
+    } else if (password.length < 6) {
+      errorMessage = 'Password must have at least six characters.';
+    } else {
+      errorMessage = ''; // No error, empty message
+    }
+
+    if (errorMessage.isNotEmpty) {
+      _showErrorDialog(errorMessage);
       setState(() {
         _isCreatingAccount = false;
       });
