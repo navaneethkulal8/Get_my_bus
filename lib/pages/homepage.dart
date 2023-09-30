@@ -23,16 +23,18 @@ class _HomepageState extends State<Homepage> {
 
   final List<IconData> _icons = [
     Icons.home,
-    Icons.bookmark_add_outlined,
+    Icons.bookmark_add_outlined, // Ticket Booking icon
     Icons.person,
-    Icons.data_array_rounded,
+    Icons.data_array_rounded, // Data Adding icon
+    Icons.settings, // Settings icon
   ];
 
   final List<Color> _iconColors = [
     Colors.blue, // Home icon color
-    Colors.green, // Bus Schedule icon color
+    Colors.orange, // Ticket Booking icon color
     Colors.red, // Profile icon color
-    Colors.orange, // Data Adding icon color
+    Colors.green, // Data Adding icon color
+    Colors.purple, // Settings icon color
   ];
 
   void _onItemTapped(int index) {
@@ -73,14 +75,15 @@ class _HomepageState extends State<Homepage> {
       case 0:
         return 'Home';
       case 1:
-        return 'Bus Schedule';
+        return 'Ticket Booking';
       case 2:
         return 'Profile';
       case 3:
         return 'Data Adding';
+      case 4:
+        return 'Settings';
       default:
         return '';
     }
   }
 }
-// to change ui of the app to make ui to make it user friendly

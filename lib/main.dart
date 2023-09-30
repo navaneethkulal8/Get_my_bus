@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           // Return the appropriate screen based on the user's authentication status
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: isUserLoggedIn ? LoginPage() : Homepage(),
+            home: isUserLoggedIn ? Homepage() : LoginPage(),
           );
         }
       },
